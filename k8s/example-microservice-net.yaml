@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-microservice-net
+spec:
+  selector:
+    matchLabels:
+      app: example-microservice-net
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-microservice-net
+    spec:
+      containers:
+      - name: example-microservice-net
+        image: mrozim78/example-microservice-net
+        ports:
+        - containerPort: 80
