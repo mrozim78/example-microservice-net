@@ -10,3 +10,16 @@ public class WeatherForecast
 
     public string? Summary { get; set; }
 }
+
+public class WeatherForecastHeader
+{
+    public IEnumerable<WeatherForecast> Forecasts {get;set;}
+
+    public string MachineName {get;set;}
+
+    public string HostName {get;set;}
+
+    public string Ip {get;set;}
+
+    public string Architecture {get;set;}
+}

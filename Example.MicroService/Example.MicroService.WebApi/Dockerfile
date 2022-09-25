@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Example.MicroService.WebApi/Example.MicroService.WebApi.csproj", "Example.MicroService.WebApi/"]
+COPY ["Example.MicroService.WebApi.csproj", "Example.MicroService.WebApi/"]
 RUN dotnet restore "Example.MicroService.WebApi/Example.MicroService.WebApi.csproj"
-COPY . .
+COPY . Example.MicroService.WebApi
 WORKDIR "/src/Example.MicroService.WebApi"
 RUN dotnet build "Example.MicroService.WebApi.csproj" -c Release -o /app/build
 

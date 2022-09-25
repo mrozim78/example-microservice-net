@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net;
 namespace Example.MicroService.WebApi.Controllers;
 
 [ApiController]
@@ -19,14 +19,26 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    public WeatherForecastHeader Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        WeatherForecastHeader header = new WeatherForecastHeader();
+        
+
+        header.Forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        header.MachineName = Environment.MachineName;
+
+        header.HostName= Dns.GetHostName(); // Retrive the Name of HOST
+            
+            // Get the IP
+        header.Ip = Dns.GetHostByName(header.HostName).AddressList[0].ToString();
+        header.Architecture =  System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture.ToString();
+        return header;
+
     }
 }
